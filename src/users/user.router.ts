@@ -65,7 +65,7 @@ userRouter.get("/:id", async (request: Request, response: Response) => {
 });
 
 // POST: Create a User
-// PARAMS: firstName, lastName, employeeType, userRole, riskStatus, riskScore, suspectType
+// PARAMS: firstName, lastName, employeeType, roleId, riskStatus, riskScore, suspectType
 userRouter.post(
   "/",
   body("firstName").isString(),
@@ -93,7 +93,7 @@ userRouter.post(
 );
 
 // PUT: Update a User
-// PARAMS: firstName, lastName, employeeType, userRole, riskStatus, riskScore, suspectType
+// PARAMS: firstName, lastName, employeeType, roleId, riskStatus, riskScore, suspectType
 userRouter.put(
   "/:id",
   body("firstName").isString(),
