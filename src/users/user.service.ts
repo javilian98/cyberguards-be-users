@@ -83,6 +83,7 @@ export const createUser = async (item: Omit<User, "id">): Promise<User> => {
       suspectCaseId,
     },
     select: {
+      id: true,
       firstName: true,
       lastName: true,
       profession: true,

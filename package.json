@@ -1,5 +1,5 @@
 {
-  "name": "cyberguards-be-cases",
+  "name": "cyberguards-be-users",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,10 @@
   },
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "test": "vitest"
+    "test-local": "vitest",
+    "docker:up": "docker compose -f ci/compose.test.yaml up -d --build",
+    "docker:down": "docker-compose -f ci/compose.test.yaml down",
+    "test": "npm run docker:up"
   },
   "keywords": [],
   "author": "",
