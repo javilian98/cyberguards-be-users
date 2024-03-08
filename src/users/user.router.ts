@@ -20,11 +20,11 @@ userRouter.get(
     .withMessage("Take must be a number")
     .isInt({ max: 50 })
     .withMessage("Take must be less than or equal to 50."),
-  query("roleId")
-    .optional()
-    .isNumeric()
-    .toInt()
-    .withMessage("role id must be a number"),
+  // query("roleId")
+  //   .optional()
+  //   .isNumeric()
+  //   .toInt()
+  //   .withMessage("role id must be a number"),
   query("userIds").optional().isString(),
   async (request: Request, response: Response) => {
     const errors = validationResult(request);

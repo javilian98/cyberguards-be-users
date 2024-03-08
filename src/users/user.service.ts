@@ -41,6 +41,7 @@ export const getUserList = async ({
     },
     select: {
       id: true,
+      roleId: true,
       firstName: true,
       lastName: true,
       profession: true,
