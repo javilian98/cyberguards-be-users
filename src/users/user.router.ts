@@ -64,6 +64,21 @@ userRouter.get("/:id", async (request: Request, response: Response) => {
   }
 });
 
+userRouter.get(
+  "/email/:email",
+  async (request: Request, response: Response) => {
+    try {
+      const singleCase = await UserService.getUserByEmail(request.params.email);
+      if (!singleCase) {
+        return response.status(404).json("User cannot be not found.");
+      }
+      return response.status(200).json(singleCase);
+    } catch (error: any) {
+      return response.status(500).json(error.message);
+    }
+  }
+);
+
 // POST: Create a User
 // PARAMS: firstName, lastName, employeeType, roleId, riskStatus, riskScore, suspectType
 userRouter.post(
