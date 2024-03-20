@@ -6,6 +6,7 @@ type User = {
   suspectTypeId: number;
   firstName: string;
   lastName: string;
+  email: string;
   riskStatus: string;
   riskScore: number;
 };
@@ -18,6 +19,7 @@ function getUsers(): User[] {
       suspectTypeId: 0,
       firstName: "John",
       lastName: "Doe",
+      email: "johndoe@gmail.com",
       riskStatus: "low",
       riskScore: 0,
     },
@@ -27,6 +29,7 @@ function getUsers(): User[] {
       suspectTypeId: 0,
       firstName: "Alice",
       lastName: "Doe",
+      email: "alicedoe@gmail.com",
       riskStatus: "medium",
       riskScore: 40,
     },
@@ -36,6 +39,7 @@ function getUsers(): User[] {
       suspectTypeId: 0,
       firstName: "Bob",
       lastName: "Doe",
+      email: "bobdoe@gmail.com",
       riskStatus: "high",
       riskScore: 80,
     },
@@ -50,6 +54,7 @@ async function seed() {
           roleId,
           firstName,
           lastName,
+          email,
           profession,
           riskStatus,
           riskScore,
@@ -61,6 +66,7 @@ async function seed() {
             profession,
             firstName,
             lastName,
+            email,
             riskStatus,
             riskScore,
           },

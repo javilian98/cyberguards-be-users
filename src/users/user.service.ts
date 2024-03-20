@@ -11,6 +11,7 @@ type UserListItem = {
 type User = {
   firstName: string;
   lastName: string;
+  email: string;
   profession: string;
   roleId: number;
   riskStatus: string;
@@ -44,6 +45,7 @@ export const getUserList = async ({
       roleId: true,
       firstName: true,
       lastName: true,
+      email: true,
       profession: true,
       riskScore: true,
       lastAccessAt: true,
@@ -62,10 +64,19 @@ export const getUser = async (id: string): Promise<User | null> => {
   });
 };
 
+export const getUserByEmail = async (email: string): Promise<User | null> => {
+  return db.user.findFirst({
+    where: {
+      email,
+    },
+  });
+};
+
 export const createUser = async (item: Omit<User, "id">): Promise<User> => {
   const {
     firstName,
     lastName,
+    email,
     profession,
     roleId,
     riskStatus,
@@ -77,6 +88,7 @@ export const createUser = async (item: Omit<User, "id">): Promise<User> => {
     data: {
       firstName,
       lastName,
+      email,
       profession,
       roleId,
       riskStatus,
@@ -87,6 +99,7 @@ export const createUser = async (item: Omit<User, "id">): Promise<User> => {
       id: true,
       firstName: true,
       lastName: true,
+      email: true,
       profession: true,
       roleId: true,
       riskStatus: true,
@@ -103,6 +116,7 @@ export const updateUser = async (
   const {
     firstName,
     lastName,
+    email,
     profession,
     roleId,
     riskStatus,
@@ -117,6 +131,7 @@ export const updateUser = async (
     data: {
       firstName,
       lastName,
+      email,
       profession,
       roleId,
       riskStatus,
@@ -127,6 +142,7 @@ export const updateUser = async (
       id: true,
       firstName: true,
       lastName: true,
+      email: true,
       profession: true,
       roleId: true,
       riskStatus: true,

@@ -17,6 +17,7 @@ model User {
   suspectCaseId    Int @default(0)
   firstName    String
   lastName     String
+  email        String
   riskStatus   String
   riskScore    Int @default(0)
   lastAccessAt DateTime?
