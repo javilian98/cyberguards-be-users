@@ -85,6 +85,7 @@ userRouter.post(
   "/",
   body("firstName").isString(),
   body("lastName").isString(),
+  body("email").isString(),
   body("profession").isString(),
   body("roleId").isNumeric(),
   body("riskStatus").isString(),
