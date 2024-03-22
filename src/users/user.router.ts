@@ -79,18 +79,12 @@ userRouter.get(
   }
 );
 
-// POST: Create a User
-// PARAMS: firstName, lastName, employeeType, roleId, riskStatus, riskScore, suspectType
 userRouter.post(
   "/",
   body("firstName").isString(),
   body("lastName").isString(),
   body("email").isString(),
-  body("profession").isString(),
   body("roleId").isNumeric(),
-  body("riskStatus").isString(),
-  body("riskScore").isNumeric(),
-  body("suspectCaseId").isNumeric(),
   async (request: Request, response: Response) => {
     const errors = validationResult(request);
 
@@ -108,17 +102,12 @@ userRouter.post(
   }
 );
 
-// PUT: Update a User
-// PARAMS: firstName, lastName, employeeType, roleId, riskStatus, riskScore, suspectType
 userRouter.put(
   "/:id",
   body("firstName").isString(),
   body("lastName").isString(),
-  body("profession").isString(),
+  body("email").isString(),
   body("roleId").isNumeric(),
-  body("riskStatus").isString(),
-  body("riskScore").isNumeric(),
-  body("suspectCaseId").isNumeric(),
   async (request: Request, response: Response) => {
     const errors = validationResult(request);
 
@@ -140,7 +129,6 @@ userRouter.put(
   }
 );
 
-// DELETE: Delete a User based on its uuid
 userRouter.delete("/:id", async (request: Request, response: Response) => {
   try {
     await UserService.deleteUser(request.params.id);

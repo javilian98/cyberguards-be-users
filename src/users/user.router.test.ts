@@ -41,12 +41,13 @@ describe("User Routes", () => {
       id: "99",
       firstName: "New",
       lastName: "User 99",
-      profession: "Human Resource",
+      email: "user99@gmail.com",
+      // profession: "Human Resource",
       roleId: 0,
-      riskStatus: "low",
-      riskScore: 20,
-      suspectCaseId: 0,
-      lastAccessAt: "",
+      // riskStatus: "low",
+      // riskScore: 20,
+      // suspectCaseId: 0,
+      // lastAccessAt: "",
     };
     const response = await request(app).post(`/api/users`).send(newUser);
 
@@ -54,7 +55,7 @@ describe("User Routes", () => {
 
     expect(response.status).toBe(201);
     expect(typeof response.body).toBe("object");
-    expect(data.profession).toBe("Human Resource");
+    // expect(data.profession).toBe("Human Resource");
   });
 
   it.sequential(
@@ -77,7 +78,7 @@ describe("User Routes", () => {
 
       expect(updatedUserDataResponse.status).toBe(200);
       expect(typeof updatedUserDataResponse.body).toBe("object");
-      expect(updatedUser.profession).toBe("Software Engineer");
+      // expect(updatedUser.profession).toBe("Software Engineer");
       expect(updatedUser.firstName).toBe("Updated");
     }
   );

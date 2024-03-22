@@ -1,24 +1,5 @@
 import { db } from "../utils/db.server";
-
-type UserListItem = {
-  firstName: string;
-  lastName: string;
-  profession: string;
-  riskScore: number;
-  suspectCaseId: number;
-  lastAccessAt: Date | null;
-};
-type User = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  profession: string;
-  roleId: number;
-  riskStatus: string;
-  riskScore: number;
-  suspectCaseId: number;
-  lastAccessAt?: Date | null;
-};
+import { UserListItem, UserDetail } from "../types/types";
 
 export const getUserList = async ({
   skip = 0,
@@ -46,17 +27,13 @@ export const getUserList = async ({
       firstName: true,
       lastName: true,
       email: true,
-      profession: true,
-      riskScore: true,
-      lastAccessAt: true,
-      suspectCaseId: true,
     },
     skip,
     take,
   });
 };
 
-export const getUser = async (id: string): Promise<User | null> => {
+export const getUser = async (id: string): Promise<UserDetail | null> => {
   return db.user.findUnique({
     where: {
       id,
@@ -64,7 +41,9 @@ export const getUser = async (id: string): Promise<User | null> => {
   });
 };
 
-export const getUserByEmail = async (email: string): Promise<User | null> => {
+export const getUserByEmail = async (
+  email: string
+): Promise<UserDetail | null> => {
   return db.user.findFirst({
     where: {
       email,
@@ -72,57 +51,33 @@ export const getUserByEmail = async (email: string): Promise<User | null> => {
   });
 };
 
-export const createUser = async (item: Omit<User, "id">): Promise<User> => {
-  const {
-    firstName,
-    lastName,
-    email,
-    profession,
-    roleId,
-    riskStatus,
-    riskScore,
-    suspectCaseId,
-  } = item;
+export const createUser = async (
+  item: Omit<UserDetail, "id">
+): Promise<UserDetail> => {
+  const { firstName, lastName, email, roleId } = item;
 
   return db.user.create({
     data: {
       firstName,
       lastName,
       email,
-      profession,
       roleId,
-      riskStatus,
-      riskScore,
-      suspectCaseId,
     },
     select: {
       id: true,
       firstName: true,
       lastName: true,
       email: true,
-      profession: true,
       roleId: true,
-      riskStatus: true,
-      riskScore: true,
-      suspectCaseId: true,
     },
   });
 };
 
 export const updateUser = async (
-  item: Omit<User, "id">,
+  item: Omit<UserDetail, "id">,
   id: string
-): Promise<User> => {
-  const {
-    firstName,
-    lastName,
-    email,
-    profession,
-    roleId,
-    riskStatus,
-    riskScore,
-    suspectCaseId,
-  } = item;
+): Promise<UserDetail> => {
+  const { firstName, lastName, email, roleId } = item;
 
   return db.user.update({
     where: {
@@ -132,22 +87,14 @@ export const updateUser = async (
       firstName,
       lastName,
       email,
-      profession,
       roleId,
-      riskStatus,
-      riskScore,
-      suspectCaseId,
     },
     select: {
       id: true,
       firstName: true,
       lastName: true,
       email: true,
-      profession: true,
       roleId: true,
-      riskStatus: true,
-      riskScore: true,
-      suspectCaseId: true,
     },
   });
 };

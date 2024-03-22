@@ -13,14 +13,9 @@ datasource db {
 model User {
   id           String @id @unique @default(uuid())
   roleId       Int @default(0) // 0: normal user, 1: analyst, 2: admin / (auth table) 
-  profession String
-  suspectCaseId    Int @default(0)
   firstName    String
   lastName     String
   email        String
-  riskStatus   String
-  riskScore    Int @default(0)
-  lastAccessAt DateTime?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
