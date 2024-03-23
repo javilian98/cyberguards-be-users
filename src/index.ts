@@ -5,11 +5,11 @@ import { userRouter } from "./users/user.router";
 
 dotenv.config();
 
-if (!process.env.PORT) {
+if (!process.env.USER_SERVICE_PORT) {
   process.exit(1);
 }
 
-const PORT: number = parseInt(process.env.PORT as string, 10);
+const PORT: number = parseInt(process.env.USER_SERVICE_PORT as string, 10);
 
 export const app = express();
 
