@@ -54,11 +54,11 @@ userRouter.get(
 
 userRouter.get("/:id", async (request: Request, response: Response) => {
   try {
-    const singleCase = await UserService.getUser(request.params.id);
-    if (!singleCase) {
+    const singleUser = await UserService.getUser(request.params.id);
+    if (!singleUser) {
       return response.status(404).json("User cannot be not found.");
     }
-    return response.status(200).json(singleCase);
+    return response.status(200).json(singleUser);
   } catch (error: any) {
     return response.status(500).json(error.message);
   }
@@ -68,11 +68,11 @@ userRouter.get(
   "/email/:email",
   async (request: Request, response: Response) => {
     try {
-      const singleCase = await UserService.getUserByEmail(request.params.email);
-      if (!singleCase) {
+      const singleUser = await UserService.getUserByEmail(request.params.email);
+      if (!singleUser) {
         return response.status(404).json("User cannot be not found.");
       }
-      return response.status(200).json(singleCase);
+      return response.status(200).json(singleUser);
     } catch (error: any) {
       return response.status(500).json(error.message);
     }
@@ -94,8 +94,8 @@ userRouter.post(
 
     try {
       const userItem = request.body;
-      const newCase = await UserService.createUser(userItem);
-      return response.status(201).json(newCase);
+      const newUser = await UserService.createUser(userItem);
+      return response.status(201).json(newUser);
     } catch (error: any) {
       return response.status(500).json(error.message);
     }
