@@ -20,11 +20,11 @@ userRouter.get(
     .withMessage("Take must be a number")
     .isInt({ max: 50 })
     .withMessage("Take must be less than or equal to 50."),
-  query("roleId")
-    .optional()
-    .isNumeric()
-    .toInt()
-    .withMessage("role id must be a number"),
+  // query("roleId")
+  //   .optional()
+  //   .isNumeric()
+  //   .toInt()
+  //   .withMessage("role id must be a number"),
   query("userIds").optional().isString(),
   async (request: Request, response: Response) => {
     const errors = validationResult(request);
@@ -54,27 +54,37 @@ userRouter.get(
 
 userRouter.get("/:id", async (request: Request, response: Response) => {
   try {
-    const singleCase = await UserService.getUser(request.params.id);
-    if (!singleCase) {
+    const singleUser = await UserService.getUser(request.params.id);
+    if (!singleUser) {
       return response.status(404).json("User cannot be not found.");
     }
-    return response.status(200).json(singleCase);
+    return response.status(200).json(singleUser);
   } catch (error: any) {
     return response.status(500).json(error.message);
   }
 });
 
-// POST: Create a User
-// PARAMS: firstName, lastName, employeeType, roleId, riskStatus, riskScore, suspectType
+userRouter.get(
+  "/email/:email",
+  async (request: Request, response: Response) => {
+    try {
+      const singleUser = await UserService.getUserByEmail(request.params.email);
+      if (!singleUser) {
+        return response.status(404).json("User cannot be not found.");
+      }
+      return response.status(200).json(singleUser);
+    } catch (error: any) {
+      return response.status(500).json(error.message);
+    }
+  }
+);
+
 userRouter.post(
   "/",
   body("firstName").isString(),
   body("lastName").isString(),
-  body("profession").isString(),
+  body("email").isString(),
   body("roleId").isNumeric(),
-  body("riskStatus").isString(),
-  body("riskScore").isNumeric(),
-  body("suspectCaseId").isNumeric(),
   async (request: Request, response: Response) => {
     const errors = validationResult(request);
 
@@ -84,25 +94,20 @@ userRouter.post(
 
     try {
       const userItem = request.body;
-      const newCase = await UserService.createUser(userItem);
-      return response.status(201).json(newCase);
+      const newUser = await UserService.createUser(userItem);
+      return response.status(201).json(newUser);
     } catch (error: any) {
       return response.status(500).json(error.message);
     }
   }
 );
 
-// PUT: Update a User
-// PARAMS: firstName, lastName, employeeType, roleId, riskStatus, riskScore, suspectType
 userRouter.put(
   "/:id",
   body("firstName").isString(),
   body("lastName").isString(),
-  body("profession").isString(),
+  body("email").isString(),
   body("roleId").isNumeric(),
-  body("riskStatus").isString(),
-  body("riskScore").isNumeric(),
-  body("suspectCaseId").isNumeric(),
   async (request: Request, response: Response) => {
     const errors = validationResult(request);
 
@@ -124,7 +129,6 @@ userRouter.put(
   }
 );
 
-// DELETE: Delete a User based on its uuid
 userRouter.delete("/:id", async (request: Request, response: Response) => {
   try {
     await UserService.deleteUser(request.params.id);

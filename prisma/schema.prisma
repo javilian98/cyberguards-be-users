@@ -7,19 +7,15 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url      = env("USER_DATABASE_URL")
 }
 
 model User {
   id           String @id @unique @default(uuid())
   roleId       Int @default(0) // 0: normal user, 1: analyst, 2: admin / (auth table) 
-  profession String
-  suspectCaseId    Int @default(0)
   firstName    String
   lastName     String
-  riskStatus   String
-  riskScore    Int @default(0)
-  lastAccessAt DateTime?
+  email        String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }

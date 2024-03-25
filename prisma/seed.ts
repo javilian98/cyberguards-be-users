@@ -2,42 +2,30 @@ import { db } from "../src/utils/db.server";
 
 type User = {
   roleId: number;
-  profession: string;
-  suspectTypeId: number;
   firstName: string;
   lastName: string;
-  riskStatus: string;
-  riskScore: number;
+  email: string;
 };
 
 function getUsers(): User[] {
   return [
     {
-      roleId: 0,
-      profession: "Software Engineer",
-      suspectTypeId: 0,
+      roleId: 2,
       firstName: "John",
       lastName: "Doe",
-      riskStatus: "low",
-      riskScore: 0,
+      email: "johndoe@gmail.com",
     },
     {
       roleId: 1,
-      profession: "Data Analyst",
-      suspectTypeId: 0,
       firstName: "Alice",
       lastName: "Doe",
-      riskStatus: "medium",
-      riskScore: 40,
+      email: "alicedoe@gmail.com",
     },
     {
       roleId: 1,
-      profession: "UI/UX Designer",
-      suspectTypeId: 0,
       firstName: "Bob",
       lastName: "Doe",
-      riskStatus: "high",
-      riskScore: 80,
+      email: "bobdoe@gmail.com",
     },
   ];
 }
@@ -46,23 +34,14 @@ async function seed() {
   try {
     await Promise.all(
       getUsers().map((row, index) => {
-        const {
-          roleId,
-          firstName,
-          lastName,
-          profession,
-          riskStatus,
-          riskScore,
-        } = row;
+        const { roleId, firstName, lastName, email } = row;
 
         return db.user.create({
           data: {
             roleId,
-            profession,
             firstName,
             lastName,
-            riskStatus,
-            riskScore,
+            email,
           },
         });
       })
